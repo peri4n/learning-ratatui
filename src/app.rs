@@ -8,8 +8,10 @@ use ratatui::{
     symbols::border,
     text::{Line, Text},
     widgets::{Block, Paragraph, Widget},
-    DefaultTerminal, Frame,
+    Frame,
 };
+
+use crate::Tui;
 
 #[derive(Debug, Default)]
 pub struct App {
@@ -19,7 +21,7 @@ pub struct App {
 
 impl App {
     /// runs the application's main loop until the user quits
-    pub fn run(&mut self, terminal: &mut DefaultTerminal) -> io::Result<()> {
+    pub fn run(&mut self, terminal: &mut Tui) -> color_eyre::Result<()> {
         while !self.exit {
             terminal.draw(|frame| self.draw(frame))?;
             self.handle_events()?;
@@ -61,7 +63,7 @@ impl App {
     }
 
     fn decrement_counter(&mut self) {
-        self.counter -= 1;
+        self.counter = self.counter.saturating_sub(1);
     }
 }
 
