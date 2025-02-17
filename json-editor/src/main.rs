@@ -25,7 +25,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut app = App::new();
     let res = run_app(&mut terminal, &mut app);
 
-        // restore terminal
+    // restore terminal
     disable_raw_mode()?;
     execute!(
         terminal.backend_mut(),
